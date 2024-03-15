@@ -18,9 +18,10 @@ enum PosImageFn { bitImageRaster, graphics }
 
 class PosTextSize {
   const PosTextSize._internal(this.value);
-  final int value;
-  static const size1 = PosTextSize._internal(1);
-  static const size2 = PosTextSize._internal(2);
+  final double value;
+  static const sizeSmall = PosTextSize._internal(1);
+  static const sizeMedium = PosTextSize._internal(1.5);
+  static const sizeLarge = PosTextSize._internal(2);
   static const size3 = PosTextSize._internal(3);
   static const size4 = PosTextSize._internal(4);
   static const size5 = PosTextSize._internal(5);
@@ -29,7 +30,7 @@ class PosTextSize {
   static const size8 = PosTextSize._internal(8);
 
   static int decSize(PosTextSize height, PosTextSize width) =>
-      16 * (width.value - 1) + (height.value - 1);
+      (16 * (width.value - 1) + (height.value - 1)).ceil();
 }
 
 class PaperSize {

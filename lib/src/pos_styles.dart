@@ -16,8 +16,8 @@ class PosStyles {
     this.underline = false,
     this.turn90 = false,
     this.align = PosAlign.left,
-    this.height = PosTextSize.size1,
-    this.width = PosTextSize.size1,
+    this.height = PosTextSize.sizeSmall,
+    this.width = PosTextSize.sizeSmall,
     this.fontType,
     this.codeTable,
   });
@@ -29,8 +29,8 @@ class PosStyles {
     this.underline: false,
     this.turn90: false,
     this.align: PosAlign.left,
-    this.height: PosTextSize.size1,
-    this.width: PosTextSize.size1,
+    this.height: PosTextSize.sizeSmall,
+    this.width: PosTextSize.sizeSmall,
     this.fontType: PosFontType.fontA,
     this.codeTable: "CP437",
   });
