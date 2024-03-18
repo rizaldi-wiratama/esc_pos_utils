@@ -29,8 +29,23 @@ class PosTextSize {
   static const size7 = PosTextSize._internal(7);
   static const size8 = PosTextSize._internal(8);
 
-  static int decSize(PosTextSize height, PosTextSize width) =>
-      (16 * (width.value - 1) + (height.value - 1)).ceil();
+  ///Decimal number based on this reference https://reference.epson-biz.com/modules/ref_escpos/index.php?content_id=34
+  static int decSize(PosTextSize height, PosTextSize width) {
+    ///For medium size we agree to use 2x height and 1x width, so based on reference
+    ///the decimal number of 1x width = 0
+    ///the decimal number of 2x height = 1
+    ///so the decimal number is 0 + 1 = 1
+    if(width.value == 1.5) return 1;
+
+    ///For small size (1x width & 1x height) : 16 * (1-1) + (1-1) = 16 * 0 + 0 = 0
+    ///For large size (2x width & 2x height) : 16 * (2-1) + (2-1) = 16 * 1 + 1 = 17
+    ///
+    ///why 17 for large size? because based on reference
+    ///the decimal number of 2x width = 16
+    ///the decimal number of 2x height = 1
+    ///so the decimal number is 16 + 1 = 17
+    return (16 * (width.value - 1) + (height.value - 1)).ceil();
+  }
 }
 
 class PaperSize {
