@@ -58,6 +58,10 @@ class QRCode {
     // pL pH cn fn m
 
     // Calculate pL and pH based on text length. In 80mm printer, QR can contains data with more than 256 characters
+    // Reference:
+    // https://download4.epson.biz/sec_pubs/pos/reference_en/escpos/gs_lparen_lk_fn180.html
+    // https://github.com/NielsLeenheer/EscPosEncoder/issues/6#issuecomment-411496158
+    // https://github.com/qzind/tray/issues/484#issuecomment-528596676
     int storeLength = textBytes.length + 3;
     var lsb = storeLength % 256;
     var msb = (storeLength / 256).floor();
