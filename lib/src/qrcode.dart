@@ -56,8 +56,17 @@ class QRCode {
     // FN 180. QR Code: Store the data in the symbol storage area
     List<int> textBytes = latin1.encode(text);
     // pL pH cn fn m
-    bytes +=
-        cQrHeader.codeUnits + [textBytes.length + 3, 0x00, 0x31, 0x50, 0x30];
+
+    // Calculate pL and pH based on text length. In 80mm printer, QR can contains data with more than 256 characters
+    // Reference:
+    // https://download4.epson.biz/sec_pubs/pos/reference_en/escpos/gs_lparen_lk_fn180.html
+    // https://github.com/NielsLeenheer/EscPosEncoder/issues/6#issuecomment-411496158
+    // https://github.com/qzind/tray/issues/484#issuecomment-528596676
+    int storeLength = textBytes.length + 3;
+    var lsb = storeLength % 256;
+    var msb = (storeLength / 256).floor();
+
+    bytes += cQrHeader.codeUnits + [lsb, msb, 0x31, 0x50, 0x30];
     bytes += textBytes;
 
     // FN 182. QR Code: Transmit the size information of the symbol data in the symbol storage area
