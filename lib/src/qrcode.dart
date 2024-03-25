@@ -56,8 +56,10 @@ class QRCode {
     // FN 180. QR Code: Store the data in the symbol storage area
     List<int> textBytes = latin1.encode(text);
     // pL pH cn fn m
-    bytes +=
-        cQrHeader.codeUnits + [textBytes.length + 3, 0x00, 0x31, 0x50, 0x30];
+    int storeLength = textBytes.length + 3;
+    var lsb = storeLength % 256;
+    var msb = (storeLength / 256).floor();
+    bytes += cQrHeader.codeUnits + [lsb, msb, 0x31, 0x50, 0x30];
     bytes += textBytes;
 
     // FN 182. QR Code: Transmit the size information of the symbol data in the symbol storage area
